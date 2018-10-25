@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (Demo)" project-jdk-type="Python SDK" />
   <component name="PyCharmProfessionalAdvertiser">
     <option name="shown" value="true" />
   </component>
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.5" project-jdk-type="Python SDK" />
+  <component name="PyCharmProfessionalAdvertiser">
+    <option name="shown" value="true" />
+  </component>
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="2" />
+  </component>
+>>>>>>> 7d58fd2d2f347353e0c5db3120439dd9bfcc2afe
 </project>

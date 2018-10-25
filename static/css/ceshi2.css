@@ -99,24 +99,17 @@
         #de_map_compare a, #de_image_compare a {
             border-radius:0.2em;
             display:table;
-            border:1px solid #8a8a8a;
             padding:0;
             display:-webkit-flex;
             align-items:center;
             height:100%;
             outline: none;
-            background:#f3f5f8;
         }
         .image_compare_span, .map_compare_span{
-            border-left:1px solid #a7a9ad;
             height: 100%;
             display: -webkit-flex;
             align-items: center;
-            margin-left: 10px;
-            border-radius: 4px;
-            padding-left: 3px;
-            background:#0a86e1;
-            color:white
+            color:#333
         }
          /**
         * 提示框的样式信息
