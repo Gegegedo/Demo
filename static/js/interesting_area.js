@@ -40,6 +40,8 @@ var all_draws;
            map.addLayer(vectorLayer);
 
         }
+        var point=interesting_area[0]["properties"]["center"];
+        map.getView().animate({center:(point)});
         for(var i in ibuild_draws){
 
              ibuild_draws[i]["context"]=JSON.parse(ibuild_draws[i]["context"]);

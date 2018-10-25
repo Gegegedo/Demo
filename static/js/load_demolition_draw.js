@@ -10,8 +10,6 @@ $(document).ready(function(){
             //alert(all_draws[i]);
               demolition_draws[i]["geometry"]=JSON.parse(demolition_draws[i]["geometry"]);
               var features=(new ol.format.GeoJSON()).readFeatures(demolition_draws[i]);
-              console.log(features);
-              console.log(100);
                style=new ol.style.Style({
                 stroke:new ol.style.Stroke({
                     color: '#00FFFF',
@@ -37,7 +35,7 @@ $(document).ready(function(){
             //alert(all_draws[i]);
              sdemolition_draws[i]["geometry"]=JSON.parse(sdemolition_draws[i]["geometry"]);
               var features=(new ol.format.GeoJSON()).readFeatures(sdemolition_draws[i]);
-              console.log(features);
+
                style=new ol.style.Style({
                 stroke:new ol.style.Stroke({
                     color: '#FFFFFF',
@@ -83,6 +81,8 @@ $(document).ready(function(){
            map.addLayer(vectorLayer);
 
         }
+//         var point=interesting_area[0]["properties"]["center"];
+//        map.getView().animate({center:(point)});
     });
     $("#btn1").click(function(){
 

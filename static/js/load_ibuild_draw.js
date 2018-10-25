@@ -85,6 +85,8 @@ $(document).ready(function(){
            map.addLayer(vectorLayer);
 
         }
+//         var point=interesting_area[0]["properties"]["center"];
+//        map.getView().animate({center:(point)});
     });
     $("#btn1").click(function(){
     if(ibuild_state){

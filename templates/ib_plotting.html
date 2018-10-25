@@ -478,12 +478,15 @@ function change1(){
 </body>
  <script>
          cords=[{{x|safe}},{{y|safe}}];//cords=[102,39]
+          var num={{num|safe}};
          if(cords.toString()!=[0,0].toString())
-           map.getView().animate({zoom: map.getView().getZoom() + 5},{center:(cords)});
+           map.getView().animate({zoom: map.getView().getZoom() + num},{center:(cords)});
          var type={{type|safe}};
+         console.log(type);
          if(type=="违建"){
-
+console.log("aaa");
          $("#btn1")[0].click();
+         console.log("bbb");
          }else if(type=="疑似违建"){
 
          $("#btn2")[0].click();

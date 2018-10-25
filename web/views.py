@@ -130,7 +130,7 @@ def ib_roller_shutters(request):
     return render(request,
                   template_name='ib_roller_shutters.html')
 #####################################################
-@login_required(login_url="/not_login/")
+# @login_required(login_url="/not_login/")
 def user_center(request):
     return render(request,
                   template_name='view_user_center.html')
@@ -213,9 +213,17 @@ def home_municipal(request):
 def ceshi(request):
     return render(request,
                   template_name='ceshi.html')
+
 def regional_present_situation(request):
     return render(request,
                   template_name='regional_chart.html')
+
+def _regional_present_situation(request):
+    date=request.GET.get("date",False)
+    interesting_area=InterestingArea.objects.filter(is_active=True)
+    response = urllib.request.urlopen('http://172.20.53.157:8089/deliver_area/',data={"interesting_area":})
+    areas = json.loads(json.loads(response.read().decode('utf-8'))['areas'])
+    return JsonResponse({'sourceMaps':areas})
 
 def ziyuanfenleixiangcha(request):
     return render(request,
@@ -247,7 +255,12 @@ def demolition_plotting(request):
         point=draw.poly.centroid
         x=draw.poly.centroid[0]
         y=draw.poly.centroid[1]
-    return render(request,'de_plotting.html',{'x':x,'y':y})
+        return render(request, 'de_plotting.html', {'x': x, 'y': y,'num':5})
+    else:
+        interesting_area = InterestingArea.objects.filter(is_active=True)
+        x = interesting_area[0].poly.centroid[0]
+        y = interesting_area[0].poly.centroid[1]
+        return render(request,'de_plotting.html',{'x':x,'y':y,'num':0})
 
 def developing(request):
     id = request.GET.get('id', False)
@@ -267,11 +280,15 @@ def ib_plotting(request):
     x=0.0;y=0.0;g_type=None
     if id:
         draw=GraphicLabel.objects.get(id=id)
-        point = draw.poly.centroid
         x = draw.poly.centroid[0]
         y = draw.poly.centroid[1]
         g_type=draw.graphiclabel
-    return render(request,'ib_plotting.html',{'x':x,'y':y,'type':json.dumps(g_type,cls=DjangoJSONEncoder)})
+        return render(request, 'ib_plotting.html', {'x': x, 'y': y, 'num':5,'type': json.dumps(g_type, cls=DjangoJSONEncoder)})
+    else:
+        interesting_area = InterestingArea.objects.filter(is_active=True)
+        x = interesting_area[0].poly.centroid[0]
+        y = interesting_area[0].poly.centroid[1]
+        return render(request,'ib_plotting.html',{'x':x,'y':y,'num':0,'type':json.dumps(g_type,cls=DjangoJSONEncoder)})
 
 
 def graphic_look(request):
@@ -638,9 +655,11 @@ def seperate_load_draw(request):
                   break
 
     for ir in interesting_area:
+        x = ir.poly.centroid[0]
+        y = ir.poly.centroid[1]
         draw = model_to_dict(ir)
         json_context = {'type': 'Feature', 'geometry': draw["poly"].geojson,
-                        'properties': {'id': draw["id"], 'square': 0}}
+                        'properties': {'id': draw["id"], 'square': 0,'center':[x,y]}}
         interesting_area_data.append(json_context)
 
     return JsonResponse({'ibuild': json.dumps(ibuild_draws,cls=DjangoJSONEncoder),"sibuild":json.dumps(sibuild_draws,cls=DjangoJSONEncoder),"demolition":json.dumps(demolition_draws,cls=DjangoJSONEncoder),"sdemolition":json.dumps(sdemolition_draws,cls=DjangoJSONEncoder),'interesting_area':interesting_area_data})
@@ -678,8 +697,10 @@ def load_ibuild_draw(request):
                sibuild_draws_data.append(json_context)
                break
     for ir in interesting_area:
+          x = ir.poly.centroid[0]
+          y = ir.poly.centroid[1]
           draw = model_to_dict(ir)
-          json_context= {'type': 'Feature', 'geometry':draw["poly"].geojson, 'properties': {'id':draw["id"],'square':0}}
+          json_context= {'type': 'Feature', 'geometry':draw["poly"].geojson, 'properties': {'id':draw["id"],'square':0,'center':[x,y]}}
           interesting_area_data.append(json_context)
     return JsonResponse({'ibuild_draws':ibuild_draws_data,'sibuild_draws':sibuild_draws_data,'interesting_area':interesting_area_data})
 
@@ -716,8 +737,10 @@ def load_demolition_draw(request):
                  sdemolition_draws_data.append(json_context)
                  break
     for ir in interesting_area:
+          x = ir.poly.centroid[0]
+          y = ir.poly.centroid[1]
           draw = model_to_dict(ir)
-          json_context= {'type': 'Feature', 'geometry':draw["poly"].geojson, 'properties': {'id':draw["id"],'square':0}}
+          json_context= {'type': 'Feature', 'geometry':draw["poly"].geojson, 'properties': {'id':draw["id"],'square':0,'center':[x,y]}}
           interesting_area_data.append(json_context)
     return JsonResponse({'demolition_draws': demolition_draws_data, 'sdemolition_draws': sdemolition_draws_data,'interesting_area':interesting_area_data})
 
