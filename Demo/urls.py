@@ -20,6 +20,7 @@ from django.conf.urls import  url
 from web import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
+    url(r'^pattern_change_detection/', views.pattern_change_detection),
     url(r'^admin/', admin.site.urls),
     url(r'^default/', views.default),
     url(r'^index_new/', views.index_new),

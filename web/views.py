@@ -35,8 +35,15 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 ##################################################
 from web.models import Map
+import requests
 ###############################################
-
+def pattern_change_detection(request):
+    # img1=request.POST.get("img1",False)
+    # img2=request.POST.get("img2",False)
+    response = urllib.request.urlopen('http://172.20.53.157:8089/map_compare/')
+    demolition_area=json.loads(response.read().decode('utf-8')["demolition_area"])
+    ibuild_area=json.loads(response.read().decode('utf-8')["ibuild_area"])
+    JsonResponse({"demolition_area":demolition_area,'ibuild_area':ibuild_area})
 
 
 def index(request):
@@ -221,7 +228,7 @@ def regional_present_situation(request):
 def _regional_present_situation(request):
     date=request.GET.get("date",False)
     interesting_area=InterestingArea.objects.filter(is_active=True)
-    response = urllib.request.urlopen('http://172.20.53.157:8089/deliver_area/',data={"interesting_area":})
+    response = urllib.request.urlopen('http://172.20.53.157:8089/deliver_area/',data={"interesting_area"})
     areas = json.loads(json.loads(response.read().decode('utf-8'))['areas'])
     return JsonResponse({'sourceMaps':areas})
 
@@ -884,6 +891,7 @@ def _interesting_area_search(request):
     #kwargs['graphiclabel__contains'] = "违建"
     if(type==""):
         ib_draws= InterestingArea.objects.all()
+        print(InterestingArea.objects.get(id=1).area_provide)
     else:
       if(type):
         kwargs['type'] = type

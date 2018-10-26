@@ -11,7 +11,7 @@ $(function(){
     legend: {
 						itemStyle: {
 								color: '#000000',
-								fontSize:'.15rem'
+								fontSize:'20px'
 						}
 				},
     credits: {
@@ -321,7 +321,6 @@ exporting: {
     legend: {
 						itemStyle: {
 								color: '#000000',
-								<!--fontWeight: 'bold',-->
 								fontSize:'16px'
 						}
 				},

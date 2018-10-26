@@ -74,26 +74,18 @@
         }
 
         #de_map_compare a, #de_image_compare a {
-            border-radius:0.2em;
             display:table;
-            border:1px solid #8a8a8a;
             padding:0;
             display:-webkit-flex;
             align-items:center;
             height:100%;
             outline: none;
-            background:#f3f5f8;
         }
         .image_compare_span, .map_compare_span{
-            border-left:1px solid #a7a9ad;
             height: 100%;
             display: -webkit-flex;
             align-items: center;
-            margin-left: 10px;
-            border-radius: 4px;
-            padding-left: 3px;
-            background:#0a86e1;
-            color:white
+            color:#333
         }
          /**
         * 提示框的样式信息
@@ -271,14 +263,14 @@
                     <ul class="map_image_compare" style="white-space: nowrap;">
                         <li class="compare-but" id="de_map_compare" style="list-style-type:none">
                             <a id="de_map_a" href="javascript:void(0)">
-                                <img src="{% static 'img/map.png' %}" style="padding-left:5px;width:50%;">
-                                <p class="map_compare_span" style="width:50%;margin:0 0 0 0;">地图</p>
+                                <img src="{% static 'img/dituyingxiangtrue.png' %}" style="width:15%;" class="ditu">
+                                <p class="map_compare_span" style="width:50%;margin:0 0 0 20px;">地图</p>
                             </a>
                         </li>
                         <li class="compare-but" id="de_image_compare" style="margin-top:10%;list-style-type:none">
                             <a id="de_image_a" href="javascript:void(0)">
-                                <img src="{% static 'img/vedio.png' %}" style="padding-left:5px;width:50%;">
-                                <p class="image_compare_span" style="width:50%;margin:0 0 0 0;">影像</p>
+                                <img src="{% static 'img//dituyingxiangtrue.png' %}" style="width:15%" class="yingxiang">
+                                <p class="image_compare_span" style="width:50%;margin:0 0 0 20px;">影像</p>
                             </a>
                         </li>
 
@@ -287,7 +279,7 @@
                             var image_selected = true;
                             $("#de_map_a").click(function(){
                                 if (map_selected) {
-                                    $(".map_compare_span").css({"background":"#ffffff","color":"black","outline":"none","border-left":"1px solid #a7a9ad"});
+                                    $('.ditu').attr('src',"{% static 'img/dituyingxiangfalse.png' %}");
                                     map_selected = false;
                                     map.removeLayer(default_geo_layer4);
                                       if (!image_selected){
@@ -296,7 +288,7 @@
                                     }
                                     layer3_cheak()
                                 } else {
-                                    $(".map_compare_span").css({"background":"#0a86e1","color":"white","outline":"none","border-left":"1px solid #a7a9ad"});
+                                    $('.ditu').attr('src',"{% static 'img/dituyingxiangtrue.png' %}");
                                     map_selected = true;
                                     map.addLayer(default_geo_layer4);
                                     layer3_cheak()
@@ -305,12 +297,12 @@
 
                             $("#de_image_a").click(function(){
                                 if (image_selected) {
-                                    $(".image_compare_span").css({"background":"#ffffff","color":"black","outline":"none","border-left":"1px solid #a7a9ad"});
+                                    $('.yingxiang').attr('src',"{% static 'img/dituyingxiangtrue.png' %}");
                                     image_selected = false;
                                     map.removeLayer(default_geo_layer2);
                                     layer3_cheak()
                                 } else {
-                                    $(".image_compare_span").css({"background":"#0a86e1","color":"white","outline":"none","border-left":"1px solid #a7a9ad"});
+                                    $('.ditu').attr('src',"{% static 'img/dituyingxiangtrue.png' %}");
                                     image_selected = true;
                                     map.addLayer(default_geo_layer2);
                                     if (map_selected){
