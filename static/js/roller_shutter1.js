@@ -1,50 +1,50 @@
 $(function(){
 
-//    selection1=document.getElementById("compare1");
-//    selection2=document.getElementById("compare2");
-//    var maps_list;
-//    $.ajax({
-//            type:'get',
-//            url:'/_map_inquiry/',
-//            data: {
-//            },
-//            success:function(d_maps){
-//                maps_list=JSON.parse(d_maps);
-//                for(m in maps_list){
-//                    area=maps_list[m].Area;
-//                    time=maps_list[m].ReceiveTime;
-//                    id=maps_list[m].GlobeID;
-//                    selection1.add(new Option(area+time,id))
-//
-//                    ////////////////////////////////////////////add all layers by default
-//                    temp_layer = new ol.layer.Image({
-//                        source: new ol.source.ImageWMS({
-//                          crossOrigin: 'anonymous',
-//                            url:'http://172.20.53.158:8080/geoserver/wms',
-//                            projection:'EPSG:4326',
-//                            params:{
-//                            LAYERS: id.toString()}
-//                        }),
-//                        projection: "EPSG:4326",
-//                       // opacity:0.5,
-//                    });
-                    //map.addLayer(temp_layer);
-//                }
-//            }
-//         });
-//    selection1.onchange=function(){
-//        var index1 = selection1.selectedIndex;
-//        $("#compare2").empty();
-//        for(m in maps_list){
-//            area1=selection1.options[index1].text.replace(/[0-9]/g, '').replace(/[-]/g, '');
-//            if(maps_list[m].Area==area1){
-//                var area=maps_list[m].Area;
-//                var time=maps_list[m].ReceiveTime;
-//                    id=maps_list[m].GlobeID;
-//                selection2.add(new Option(area+time,id));
-//            }
-//        }
-//    };
+    selection1=document.getElementById("compare1");
+    selection2=document.getElementById("compare2");
+    var maps_list;
+    $.ajax({
+            type:'get',
+            url:'/_map_inquiry/',
+            data: {
+            },
+            success:function(d_maps){
+                maps_list=JSON.parse(d_maps);
+                for(m in maps_list){
+                    area=maps_list[m].Area;
+                    time=maps_list[m].ReceiveTime;
+                    id=maps_list[m].GlobeID;
+                    selection1.add(new Option(area+time,id))
+
+                    ////////////////////////////////////////////add all layers by default
+                    temp_layer = new ol.layer.Image({
+                        source: new ol.source.ImageWMS({
+                          crossOrigin: 'anonymous',
+                            url:'http://172.20.53.158:8080/geoserver/wms',
+                            projection:'EPSG:4326',
+                            params:{
+                            LAYERS: id.toString()}
+                        }),
+                        projection: "EPSG:4326",
+                       // opacity:0.5,
+                    });
+                    map.addLayer(temp_layer);
+                }
+            }
+         });
+    selection1.onchange=function(){
+        var index1 = selection1.selectedIndex;
+        $("#compare2").empty();
+        for(m in maps_list){
+            area1=selection1.options[index1].text.replace(/[0-9]/g, '').replace(/[-]/g, '');
+            if(maps_list[m].Area==area1){
+                var area=maps_list[m].Area;
+                var time=maps_list[m].ReceiveTime;
+                    id=maps_list[m].GlobeID;
+                selection2.add(new Option(area+time,id));
+            }
+        }
+    };
 
     var iscompare=false;
     var button_compare=$(".new_btn");

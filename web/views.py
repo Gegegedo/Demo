@@ -37,13 +37,31 @@ from django.views.decorators.csrf import csrf_exempt
 from web.models import Map
 import requests
 ###############################################
+def _map_inquiry(request):
+    response = requests.post('http://172.20.53.157:8089/map_all/')
+    # print(response)
+    # print(response)
+    return JsonResponse({'maps':response.text})
+
+
+
 def pattern_change_detection(request):
-    # img1=request.POST.get("img1",False)
-    # img2=request.POST.get("img2",False)
-    response = urllib.request.urlopen('http://172.20.53.157:8089/map_compare/')
-    demolition_area=json.loads(response.read().decode('utf-8')["demolition_area"])
-    ibuild_area=json.loads(response.read().decode('utf-8')["ibuild_area"])
-    JsonResponse({"demolition_area":demolition_area,'ibuild_area':ibuild_area})
+    img1=request.POST.get("img1",False)
+    img2=request.POST.get("img2",False)
+    interesting_area=InterestingArea.objects.filter(is_active=True)
+    interesting_area_list=[]
+    for ir in interesting_area:
+        interesting_area_list.append(ir.poly.geojson)
+    response=requests.post('http://172.20.53.157:8089/map_compare/',data={'id1':img1,'id2':img2,'interesting_area':interesting_area_list})
+
+
+    # response = urllib.request.urlopen('http://172.20.53.157:8089/map_compare/?id1=1&id2=2')
+    # data=json.loads(response.read().decode('utf-8'))
+    # demolition_area=json.loads(response.read().decode('utf-8')["demolition_area"])
+    # ibuild_area=json.loads(response.read().decode('utf-8')["ibuild_area"])
+    #return JsonResponse({"demolition_area":demolition_area,'ibuild_area':ibuild_area})
+    return JsonResponse(response.text)
+
 
 
 def index(request):
@@ -807,15 +825,7 @@ def map_inquiry(request):
     else:
         return render(request, 'rm_resource_search.html', {'message': '查找结果为空！'})
 
-def _map_inquiry(request):
-    maps_temp = Map.objects.all()
-    d_maps = {}
-    for i in range(len(maps_temp)):
-        d_maps[i] = model_to_dict(maps_temp[i])
-    if d_maps:
-        return HttpResponse(json.dumps(d_maps, cls=DjangoJSONEncoder))
-    else:
-        return HttpResponse({'message': '查找结果为空！'})
+
 
 def _autographiclabel_inquiry(request):
     graphictype=request.GET.get('type',False)
@@ -891,7 +901,6 @@ def _interesting_area_search(request):
     #kwargs['graphiclabel__contains'] = "违建"
     if(type==""):
         ib_draws= InterestingArea.objects.all()
-        print(InterestingArea.objects.get(id=1).area_provide)
     else:
       if(type):
         kwargs['type'] = type
