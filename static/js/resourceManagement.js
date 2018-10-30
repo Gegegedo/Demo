@@ -66,10 +66,10 @@ function showList(){
                           + "</a>"
                           + "<a href='#' class='operate' id='download"+row.id +"' data-id='"+row.id +"' onclick='downloadImg(\" "+row.id+" \")' onmouseover='download_mouseOver(\" "+row.id+" \")' onmouseout='download_mouseOut(\" "+row.id+" \")'>"
                           + "<img id='download_img"+row.id+"' class='nav-img' src='../static/img/download.png'>"
-                          + "</a>"
-                          + "<a href='#' class='operate' id='delete_resource"+row.id +"' data-id='"+row.id +"' onclick='deleteImg(\" "+row.id+" \")' onmouseover='del_mouseOver(\" "+row.id+" \")' onmouseout='del_mouseOut(\" "+row.id+" \")'>"
-                          + "<img id='del_img"+row.id+"' class='nav-img' src='../static/img/delete.png'>"
                           + "</a>";
+//                          + "<a href='#' class='operate' id='delete_resource"+row.id +"' data-id='"+row.id +"' onclick='deleteImg(\" "+row.id+" \")' onmouseover='del_mouseOver(\" "+row.id+" \")' onmouseout='del_mouseOut(\" "+row.id+" \")'>"
+//                          + "<img id='del_img"+row.id+"' class='nav-img' src='../static/img/delete.png'>"
+//                          + "</a>";
 //                    } else {
 //                        element = "<button class='operate' id='change_resource"+row.id +"' data-id='"+row.id +"'>修改</button>"
 //                            + "<button class='operate' id='download_resource"+row.id +"' data-id='"+row.id +"' onclick=''>下载</button>"
@@ -204,13 +204,15 @@ function query(){
 
     $.ajax({
             type:'get',
-            url:'/map_inquiry/',
+            url:'/_map_inquiry/',
             data: {
                 'maptype':maptype,
             },
             success:function(result){
                 var data1=[];
-                result_data=result['maps']
+                result_data=JSON.parse(result['maps'])
+                result_data=result_data['maps'];
+
                 for(var i in result_data){
                     data1.push(result_data[i]);
                     }
