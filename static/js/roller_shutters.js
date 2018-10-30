@@ -23,20 +23,6 @@ $(function(){
                     id=maps_list[m]['id'];
 
                     selection1.add(new Option(area+time,id))
-
-                    ////////////////////////////////////////////add all layers by default
-//                    temp_layer = new ol.layer.Image({
-//                        source: new ol.source.ImageWMS({
-//                          crossOrigin: 'anonymous',
-//                            url:'http://172.20.53.157:8080/geoserver/wms',
-//                            projection:'EPSG:4326',
-//                            params:{
-//                            LAYERS: 'Map:'+id.toString()}
-//                        }),
-//                        projection: "EPSG:4326",
-//                       // opacity:0.5,
-//                    });
-//                    map.addLayer(temp_layer);
                 }
             }
          });
@@ -66,9 +52,12 @@ $(function(){
     if(iscompare){
         map.removeLayer(temp_layer1);
         map_2.removeLayer(temp_layer2);
-        map_2.removeLayer(ibuild_vectorLayer);
-        map_2.removeLayer(demolition_vectorLayer);
-        map2.hide();
+//        map_2.removeLayer(ibuild_vectorLayer);
+//        map_2.removeLayer(demolition_vectorLayer);
+
+//map2.css("visibility","hidden");
+map2.hide();
+
         map1.off('mousemove');
         map2.off('mousemove');
         iscompare=false;
@@ -81,58 +70,58 @@ $(function(){
         var index2 = selection2.selectedIndex;
         var text2 = selection2.options[index2].text;
         var value2 = selection2.options[index2].value;
-              $.ajax({
-        type:'post',
-        url:'pattern_change_detection',
-        data:{'img1':value1,'img2':value2},
-        success:function(result){
-          ibuild_area=JSON.parse(result['ibuild_area']);
-          demolition_area=JSON.parse(result['demolition_area']);
-          ibuild_area['geometry']=JSON.parse(ibuild_area['geometry']);
-          demolition_area['geometry']=JSON.parse(demolition_area['geometry']);
-
-           var ibuild_features=(new ol.format.GeoJSON()).readFeatures(ibuild_area);
-            style1=new ol.style.Style({
-                stroke:new ol.style.Stroke({
-                    color:'#00FFFF',
-                   width: 1,
-                }),
-                fill: new ol.style.Fill({ //矢量图层填充颜色，以及透明度
-                    color: '#A6C2DE'
-                }),
-            });
-            ibuild_features[0].setStyle(style1);
-            var ibuild_vectorSource = new ol.source.Vector({
-                features: ibuild_features//(new ol.format.GeoJSON()).readFeatures(ibuild_draws[i])
-              });
-
-            var ibuild_vectorLayer = new ol.layer.Vector({
-                source: ibuild_vectorSource,
-                 opacity:0.5
-            });
-
-
-            var demolition_features=(new ol.format.GeoJSON()).readFeatures(demolition_area);
-            style2=new ol.style.Style({
-                stroke:new ol.style.Stroke({
-                    color:  '#FFFFFF',
-                   width: 1,
-                }),
-                fill: new ol.style.Fill({ //矢量图层填充颜色，以及透明度
-                    color: '#FFED59'
-                }),
-            });
-            demolition_features[0].setStyle(style2);
-            var demolition_vectorSource = new ol.source.Vector({
-                features: demolition_features//(new ol.format.GeoJSON()).readFeatures(ibuild_draws[i])
-              });
-
-            var demolition_vectorLayer = new ol.layer.Vector({
-                source: demolition_vectorSource,
-                 opacity:0.5
-            });
-          }
-        });
+//              $.ajax({
+//        type:'post',
+//        url:'pattern_change_detection',
+//        data:{'img1':value1,'img2':value2},
+//        success:function(result){
+//          ibuild_area=JSON.parse(result['ibuild_area']);
+//          demolition_area=JSON.parse(result['demolition_area']);
+//          ibuild_area['geometry']=JSON.parse(ibuild_area['geometry']);
+//          demolition_area['geometry']=JSON.parse(demolition_area['geometry']);
+//
+//           var ibuild_features=(new ol.format.GeoJSON()).readFeatures(ibuild_area);
+//            style1=new ol.style.Style({
+//                stroke:new ol.style.Stroke({
+//                    color:'#00FFFF',
+//                   width: 1,
+//                }),
+//                fill: new ol.style.Fill({ //矢量图层填充颜色，以及透明度
+//                    color: '#A6C2DE'
+//                }),
+//            });
+//            ibuild_features[0].setStyle(style1);
+//            var ibuild_vectorSource = new ol.source.Vector({
+//                features: ibuild_features//(new ol.format.GeoJSON()).readFeatures(ibuild_draws[i])
+//              });
+//
+//            var ibuild_vectorLayer = new ol.layer.Vector({
+//                source: ibuild_vectorSource,
+//                 opacity:0.5
+//            });
+//
+//
+//            var demolition_features=(new ol.format.GeoJSON()).readFeatures(demolition_area);
+//            style2=new ol.style.Style({
+//                stroke:new ol.style.Stroke({
+//                    color:  '#FFFFFF',
+//                   width: 1,
+//                }),
+//                fill: new ol.style.Fill({ //矢量图层填充颜色，以及透明度
+//                    color: '#FFED59'
+//                }),
+//            });
+//            demolition_features[0].setStyle(style2);
+//            var demolition_vectorSource = new ol.source.Vector({
+//                features: demolition_features//(new ol.format.GeoJSON()).readFeatures(ibuild_draws[i])
+//              });
+//
+//            var demolition_vectorLayer = new ol.layer.Vector({
+//                source: demolition_vectorSource,
+//                 opacity:0.5
+//            });
+//          }
+//        });
 
         for(m in maps_list){
                     id=maps_list[m].GlobeID;
@@ -166,13 +155,13 @@ $(function(){
             projection: "EPSG:4326",
             //opacity:0.5,
         });
-        map_2.addLayer(ibuild_vectorLayer);
-        map_2.addLayer(demolition_vectorLayer);
+//        map_2.addLayer(ibuild_vectorLayer);
+//        map_2.addLayer(demolition_vectorLayer);
         map.addLayer(temp_layer2);
         map_2.addLayer(temp_layer1);
 
         map2.show();
-        map2.css("visibility","visible");
+        //map2.css("visibility","visible");
 
         map1.on('mousemove',event_map1);
         map2.on('mousemove',event_map2);
