@@ -163,7 +163,7 @@
         .fix{
             position:fixed;
             left:1rem;
-            top:.8rem;
+            top:.61rem;
             width:2rem;
             background:white;
             font-size:.15rem;
@@ -192,7 +192,7 @@
         .compare-input{
              width: 1rem;
              height:.4rem;
-            font-size:.12rem;
+
         }
         .makesure{
             width:.8rem;
@@ -233,11 +233,11 @@
 
                     <a href="{% static 'baogao/资源分类.pdf' %}" class="yy-as" download ><img src="{% static 'img/baogao.png' %}" class="yy-n1"><p class="download">生成报告</p></a>
                     <select type="text" class="compare-input" id="imagery">
-                          <option selected="selected">2018.4</option>
+                         <option>请选择影像</option>
                     </select>
-                    <button class="makesure" style="">确定</button>
+                    <button class="makesure" style="" id="confirm_button">确定</button>
                     <div class="dzspallbtn">
-                    <button class="dzspbtn xl0">一张图</button>
+                    <button class="dzspbtn xl0" id="btn0" >一张图</button>
                     <button class="dzspbtn xl1" id="btn1">建筑</button>
                     <button class="dzspbtn xl2" id="btn2">道路</button>
                     <button class="dzspbtn xl3" id="btn3">草地</button>
@@ -262,14 +262,14 @@
     <ul class="map_image_compare dingweishuang" style="white-space: nowrap;width: .7rem;padding-left: 0;min-width:60px;">
                         <li class="compare-but" id="ib_map_compare" style="list-style-type:none">
                             <a id="ib_map_a" href="javascript:void(0)">
-                                <img src="{% static 'img/dituyingxiangtrue.png' %}" style="width:20%;" class="ditu">
-                                <p class="map_compare_span" style="width:50%;margin:0 0 0 20px;font-size:.12rem">地图</p>
+                                <img src="{% static 'img/dituyingxiangtrue.png' %}" style="width:15%;" class="ditu">
+                                <p class="map_compare_span" style="width:50%;margin:0 0 0 20px;font-size:20px">地图</p>
                             </a>
                         </li>
                         <li class="compare-but" id="ib_image_compare" style="list-style-type:none;margin-top:10px;">
                             <a id="ib_image_a" href="javascript:void(0)">
-                                <img src="{% static 'img/dituyingxiangtrue.png' %}" style="width:20%;" class="yingxiang">
-                                <p class="image_compare_span" style="width:50%;margin:0 0 0 20px;font-size:.12rem">影像</p>
+                                <img src="{% static 'img/dituyingxiangtrue.png' %}" style="width:15%;" class="yingxiang">
+                                <p class="image_compare_span" style="width:50%;margin:0 0 0 20px;font-size:20px">影像</p>
                             </a>
                         </li>
                         <script>

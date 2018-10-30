@@ -1,3 +1,84 @@
+$(function(){
+var my_map;
+var layer1;
+var layer2;
+var layer3;
+var layer4;
+var layer5;
+var layer6;
+var layer7;
+var btns=[$('#btn0'),$('#btn1'),$('#btn2'),$('#btn3'),$('#btn4'),$('#btn5'),$('#btn6'),$('#btn7')];
+function clear_patterns(){
+map.removeLayer(layer1);
+map.removeLayer(layer2);
+map.removeLayer(layer3);
+map.removeLayer(layer4);
+map.removeLayer(layer5);
+map.removeLayer(layer6);
+map.removeLayer(layer7);
+
+}
+function clear_btn(){
+for(var i in btns){
+btns[i].css("background","#f4f5f9");
+btns[i].css("color","#717274");
+}
+}
+function display_patterns(status_array){
+if(status_array[0]){
+
+clear_patterns();
+map.addLayer(layer1);
+map.addLayer(layer2);
+map.addLayer(layer3);
+map.addLayer(layer4);
+map.addLayer(layer5);
+map.addLayer(layer6);
+map.addLayer(layer7);
+}
+if(status_array[1]){
+clear_patterns();
+map.addLayer(layer1);
+
+
+}
+if(status_array[2]){
+clear_patterns();
+map.addLayer(layer2);
+
+
+}
+if(status_array[3]){
+clear_patterns();
+map.addLayer(layer3);
+
+
+}
+if(status_array[4]){
+clear_patterns();
+map.addLayer(layer4);
+
+
+}
+if(status_array[5]){
+clear_patterns();
+map.addLayer(layer5);
+
+
+}
+if(status_array[6]){
+clear_patterns();
+map.addLayer(layer6);
+
+
+}
+if(status_array[7]){
+clear_patterns();
+map.addLayer(layer7);
+
+
+}
+}
  var map = new ol.Map({
    target: 'map',
    view: new ol.View({
@@ -19,174 +100,263 @@
         })
   ]),
  });
-var geoserver_layer4= new ol.layer.Image({
-          source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
-          projection:'EPSG:4326',
-          params:{
-            LAYERS: 'Map:67'}
-          }),
-          opacity:1,
-        });
-
 map.addLayer(default_geo_layer2);
 map.addLayer(default_geo_layer4);
-map.addLayer(geoserver_layer4);
- var layer1 = new ol.layer.Image({
+    selection1=document.getElementById("imagery");
+    var maps_list;
+    $.ajax({
+            type:'get',
+            url:'/_map_inquiry/',
+            data: {
+            },
+            success:function(d_maps){
+                maps_list=JSON.parse(d_maps['maps']);
+                maps_list=maps_list['maps'];
+                console.log(maps_list[0]['id']);
+                console.log(typeof(d_maps));
+               // maps_list=map_list["maps"];
+                for(var m in maps_list){
+                    area=maps_list[m]['area'];
+
+                    time=maps_list[m]['capture_time'];
+                    id=maps_list[m]['id'];
+
+                    selection1.add(new Option(area+time,id))
+
+
+                }
+            }
+         });
+$("#confirm_button").click(function(){
+
+var index1 = selection1.selectedIndex;
+var value = selection1.options[index1].value;
+console.log(value);
+clear_btn();
+map.removeLayer(my_map);
+clear_patterns();
+my_map= new ol.layer.Image({
           source: new ol.source.ImageWMS({
 
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'Mask:67_1'}
+            LAYERS: 'Map:'+value.toString()}
           }),
           opacity:1,
         });
- var layer2 = new ol.layer.Image({
+
+
+map.addLayer(my_map);
+  layer1 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
 
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'Mask:67_2'}
+            LAYERS: 'Mask:'+value.toString()+'_1'}
           }),
-          opacity:1,
+          opacity:0.5,
         });
-  var layer3 = new ol.layer.Image({
+  layer2 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
 
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'Mask:67_3'}
+            LAYERS: 'Mask:'+value.toString()+'_2'}
           }),
-          opacity:1,
+          opacity:0.5,
         });
-   var layer4 = new ol.layer.Image({
+   layer3 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
 
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'Mask:67_4'}
+            LAYERS: 'Mask:'+value.toString()+'_3'}
           }),
-          opacity:1,
+          opacity:0.5,
         });
-   var layer5 = new ol.layer.Image({
+    layer4 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
 
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'Mask:67_5'}
+            LAYERS: 'Mask:'+value.toString()+'_4'}
           }),
-          opacity:1,
+          opacity:0.5,
         });
-    var layer6 = new ol.layer.Image({
+    layer5 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
 
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'Mask:67_6'}
+            LAYERS: 'Mask:'+value.toString()+'_5'}
           }),
-          opacity:1,
+          opacity:0.5,
         });
-   var layer7 = new ol.layer.Image({
+     layer6 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
 
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'Mask:67_7'}
+            LAYERS: 'Mask:'+value.toString()+'_6'}
           }),
-          opacity:1,
+          opacity:0.5,
         });
-btn1_status=false;
-btn2_status=false;
-btn3_status=false;
-btn4_status=false;
-btn5_status=false;
-btn6_status=false;
-btn7_status=false;
+    layer7 = new ol.layer.Image({
+          source: new ol.source.ImageWMS({
 
-$("#btn1").click(function(){
-if(btn1_status){
-btn1_status=false;
+          url:'http://172.20.53.157:8080/geoserver/wms',
+          projection:'EPSG:4326',
+          params:{
+            LAYERS: 'Mask:'+value.toString()+'_7'}
+          }),
+          opacity:0.5,
+        });
+     var btn_status=[false,false,false,false,false,false,false,false];
 
-$("#area").text("");
-map.removeLayer(layer1);
+
+function change_btn_css(btn_status){
+if(btn_status[0]){
+clear_btn();
+btns[0].css("background","#0090ff");
+btns[0].css('color','white');
+}
+if(btn_status[1]){
+clear_btn();
+btns[1].css("background","#0090ff");
+btns[1].css('color','white');
+}
+if(btn_status[2]){
+clear_btn();
+btns[2].css("background","#0090ff");
+btns[2].css('color','white');
+}
+if(btn_status[3]){
+clear_btn();
+btns[3].css("background","#0090ff");
+btns[3].css('color','white');
+}
+if(btn_status[4]){
+clear_btn();
+btns[4].css("background","#0090ff");
+btns[4].css('color','white');
+}
+if(btn_status[5]){
+clear_btn();
+btns[5].css("background","#0090ff");
+btns[5].css('color','white');
+}
+if(btn_status[6]){
+clear_btn();
+btns[6].css("background","#0090ff");
+btns[6].css('color','white');
+}
+if(btn_status[7]){
+clear_btn();
+btns[7].css("background","#0090ff");
+btns[7].css('color','white');
+}
+
+}
+$("#btn0").click(function(){
+
+for(var i in btn_status){
+if(i!=0){
+btn_status[i]=false;
 }else{
-$("#area").text("123");
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
+}
+})
+$("#btn1").click(function(){
 
-btn1_status=true;
-map.addLayer(layer1);
+for(var i in btn_status){
+if(i!=1){
+btn_status[i]=false;
+}else{
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
 }
 })
 $("#btn2").click(function(){
-if(btn2_status){
-btn2_status=false;
-$("#area").text("");
-map.removeLayer(layer2);
+
+for(var i in btn_status){
+if(i!=2){
+btn_status[i]=false;
 }else{
-btn2_status=true;
-$("#area").text("456");
-map.addLayer(layer2);
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
 }
 })
 $("#btn3").click(function(){
-if(btn3_status){
-$("#area").text("");
-btn3_status=false;
-map.removeLayer(layer3);
+for(var i in btn_status){
+if(i!=3){
+btn_status[i]=false;
 }else{
-$("#area").text("159");
-btn3_status=true;
-map.addLayer(layer3);
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
 }
 })
 $("#btn4").click(function(){
-if(btn4_status){
-$("#area").text("");
-btn4_status=false;
-map.removeLayer(layer4);
+for(var i in btn_status){
+if(i!=4){
+btn_status[i]=false;
 }else{
-$("#area").text("475");
-btn4_status=true;
-map.addLayer(layer4);
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
 }
 })
 $("#btn5").click(function(){
-if(btn5_status){
-$("#area").text("");
-btn5_status=false;
-map.removeLayer(layer5);
+for(var i in btn_status){
+if(i!=5){
+btn_status[i]=false;
 }else{
-$("#area").text("364");
-btn5_status=true;
-map.addLayer(layer5);
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
 }
 })
 $("#btn6").click(function(){
-if(btn6_status){
-$("#area").text("");
-btn6_status=false;
-map.removeLayer(layer6);
+for(var i in btn_status){
+if(i!=6){
+btn_status[i]=false;
 }else{
-$("#area").text("745");
-btn6_status=true;
-map.addLayer(layer6);
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
 }
 })
 $("#btn7").click(function(){
-if(btn7_status){
-$("#area").text("");
-btn7_status=false;
-map.removeLayer(layer7);
+for(var i in btn_status){
+if(i!=7){
+btn_status[i]=false;
 }else{
-$("#area").text("746");
-btn7_status=true;
-map.addLayer(layer7);
+btn_status[i]=true;
+}
+change_btn_css(btn_status);
+display_patterns(btn_status);
 }
 })
+}
+)
+
+
+});
