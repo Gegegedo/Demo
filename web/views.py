@@ -39,8 +39,6 @@ import requests
 ###############################################
 def _map_inquiry(request):
     response = requests.post('http://172.20.53.157:8089/map_all/')
-    # print(response)
-    # print(response)
     return JsonResponse({'maps':response.text})
 
 
@@ -325,19 +323,9 @@ def default(request):
                   template_name='default_municipal.html')
 
 def resource_search(request):
-    response=urllib.request.urlopen('http://172.20.53.158:8089/deliver_map/')
-    sourceMaps=json.loads(json.loads(response.read().decode('utf-8'))['d_maps'])
-    maptype=request.GET.get('maptype',False)
-    resultMaps={}
-    if(maptype=="请选择卫星种类"):
-        return JsonResponse({'sourceMaps': sourceMaps})
-    else:
-        for k,v in sourceMaps.items():
-            if(v["satelite"]==maptype):
-                resultMaps[k]=v
-        sourceMaps=resultMaps
-    # if sourceMaps:
-    return JsonResponse({'sourceMaps': sourceMaps})
+    response = requests.post('http://172.20.53.157:8089/map_all/')
+
+    return JsonResponse({'sourceMaps': response.text})
     # else:
     #     return JsonResponse({'sourceMaps': sourceMaps, "message": False})
 

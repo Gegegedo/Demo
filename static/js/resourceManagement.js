@@ -53,11 +53,12 @@ function showList(){
         data:data,
         columns: [
             {field: 'SerialNumber',title: '序号', width:'10%',align:'center',formatter: function (value, row, index) {return index+1;}},
-            {field: 'map_name', title:'影像资源', width:'10%', align:'center'},
-            {field: 'create_time', title:'入库时间', width:'10%', align:'center'},
+            {field: 'name', title:'影像资源', width:'10%', align:'center'},
+            {field: 'area', title:'影像区域', width:'10%', align:'center'},
             {field: 'satelite', title:'卫星', width:'10%', align:'center'},
-            {field: 'imagry_type', title:'影像类别', width:'20%', align:'center'},
-            {field: 'download_times', title:'下载次数', width:'10%', align:'center'},
+            {field: 'desc', title:'影像描述', width:'20%', align:'center'},
+            {field: 'capture_time', title:'拍摄时间', width:'10%', align:'center'},
+            {field: 'upload_time', title:'上传时间', width:'10%', align:'center'},
             {field: 'tool',title: '操作', align: 'center',
                 formatter: function (value,row,index){
                     var element = "<a href='#' class='operate' id='change_resource"+row.id +"' data-id='"+row.id +"' style='margin-left:0;' onclick='show_map(\" "+row.id+" \")' onmouseover='check_mouseOver(\" "+row.id+" \")' onmouseout='check_mouseOut(\" "+row.id+" \")'>"
@@ -203,13 +204,13 @@ function query(){
 
     $.ajax({
             type:'get',
-            url:'/resource_search/',
+            url:'/map_inquiry/',
             data: {
                 'maptype':maptype,
             },
             success:function(result){
                 var data1=[];
-                result_data=result['sourceMaps']
+                result_data=result['maps']
                 for(var i in result_data){
                     data1.push(result_data[i]);
                     }

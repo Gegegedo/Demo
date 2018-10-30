@@ -13,8 +13,7 @@ $(function(){
             success:function(d_maps){
                 maps_list=JSON.parse(d_maps['maps']);
                 maps_list=maps_list['maps']
-                console.log(maps_list[0]['id']);
-                console.log(typeof(d_maps));
+
                // maps_list=map_list["maps"];
                 for(var m in maps_list){
                     area=maps_list[m]['area'];
