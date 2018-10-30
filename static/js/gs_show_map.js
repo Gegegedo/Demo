@@ -25,7 +25,7 @@ var geoserver_layer4= new ol.layer.Image({
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:412'}
+            LAYERS: 'Map:67'}
           }),
           opacity:1,
         });
@@ -39,7 +39,7 @@ map.addLayer(geoserver_layer4);
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:Test_1'}
+            LAYERS: 'Mask:67_1'}
           }),
           opacity:1,
         });
@@ -49,7 +49,7 @@ map.addLayer(geoserver_layer4);
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:Test_2'}
+            LAYERS: 'Mask:67_2'}
           }),
           opacity:1,
         });
@@ -59,7 +59,7 @@ map.addLayer(geoserver_layer4);
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:Test_3'}
+            LAYERS: 'Mask:67_3'}
           }),
           opacity:1,
         });
@@ -69,7 +69,7 @@ map.addLayer(geoserver_layer4);
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:Test_4'}
+            LAYERS: 'Mask:67_4'}
           }),
           opacity:1,
         });
@@ -79,7 +79,7 @@ map.addLayer(geoserver_layer4);
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:Test_5'}
+            LAYERS: 'Mask:67_5'}
           }),
           opacity:1,
         });
@@ -89,7 +89,7 @@ map.addLayer(geoserver_layer4);
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:Test_6'}
+            LAYERS: 'Mask:67_6'}
           }),
           opacity:1,
         });
@@ -99,7 +99,7 @@ map.addLayer(geoserver_layer4);
           url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
-            LAYERS: 'GF2:Test_7'}
+            LAYERS: 'Mask:67_7'}
           }),
           opacity:1,
         });

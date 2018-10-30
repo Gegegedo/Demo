@@ -65,7 +65,7 @@ credits: {
     },
     legend:{
         itemStyle:{
-            fontSize:"15px"
+            fontSize:"30px"
         },
         align:'right',
         x:-50,
@@ -73,7 +73,7 @@ credits: {
         verticalAlign:'top',
         floating:true,
         layout: 'vertical',
-        symbolWidth:40,
+        symbolWidth:60,
     },
     series: [{
         type: 'pie',
