@@ -91,13 +91,10 @@
 <body>
     <div class="yy-header">
         <span class="yy-content1">时间:</span>
-        <select class="yy-xb">
+        <select class="yy-xb" id="imagery">
             <option value="请选择时间">请选择时间</option>
-            <option value="2016.12" selected="selected">2016.12</option>
-            <!--<option value="2017.5">2017.5</option>-->
-            <!--<option value="2017.12">2017.12</option>-->
         </select>
-        <button class="yy-btn yy-sure">确定</button>
+        <button class="yy-btn yy-sure" id="confirm_button">确定</button>
             <a href="{% static 'baogao/资源分类.pdf' %}" class="yy-as" download style="color:white;margin-left:.01rem;">
                 <img src="{% static 'img/baogao.png' %}" class="yy-n1">
                 <span class="sc">生成报告</span>

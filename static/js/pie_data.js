@@ -122,9 +122,60 @@ credits: {
     function setSize(width,height) {
 	    chart.setSize(width,height);
     }
+    selection1=document.getElementById("imagery");
+    var maps_list;
+    $.ajax({
+            type:'get',
+            url:'/_map_inquiry/',
+            data: {
+            },
+            success:function(d_maps){
+                console.log(d_maps);
+                maps_list=JSON.parse(d_maps['maps']);
+                maps_list=maps_list['maps'];
+
+
+                for(var m in maps_list){
+                    area=maps_list[m]['area'];
+
+                    time=maps_list[m]['capture_time'];
+                    id=maps_list[m]['id'];
+
+                    selection1.add(new Option(area+time,id))
+                    selection1.options[0].text="请选择影像"
+
+
+                }
+            }
+         });
+         $("#confirm_button").click(function(){
+var index1 = selection1.selectedIndex;
+var area=maps_list[index1-1]['mask_area'];
+                chart.series[0].update({
+                  data: [
+            {name:'农田',   y: area[5], url : 'http://bbs.hcharts.cn'},
+            ['其他',       area[0]],
+            {
+                name: '大棚',
+                y: area[6],
+                sliced: true,
+                selected: true,
+                url: 'http://www.hcharts.cn'
+            },
+            ['森林',    area[7]],
+            ['道路',     area[2]],
+            ['水域',   area[4]],
+            ['房屋',   area[1]],
+        ]
+
+                });
+                chart.setTitle
+
+
+         })
 //    $.ajax({
 //            type:'get',
-//            url:'/pie_data/',
+//            url:'/map_all/',
 //            success:function(result){
 //
 //                var area=result['area'];

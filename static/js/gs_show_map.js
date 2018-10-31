@@ -110,11 +110,11 @@ map.addLayer(default_geo_layer4);
             data: {
             },
             success:function(d_maps){
+                console.log(d_maps);
                 maps_list=JSON.parse(d_maps['maps']);
                 maps_list=maps_list['maps'];
-                console.log(maps_list[0]['id']);
-                console.log(typeof(d_maps));
-               // maps_list=map_list["maps"];
+
+
                 for(var m in maps_list){
                     area=maps_list[m]['area'];
 
@@ -122,7 +122,8 @@ map.addLayer(default_geo_layer4);
                     id=maps_list[m]['id'];
 
                     selection1.add(new Option(area+time,id))
-
+                    selection1.options[0].text="请选择影像"
+                //$('#origin_option').text("请选择影像");
 
                 }
             }
@@ -130,12 +131,12 @@ map.addLayer(default_geo_layer4);
 $("#confirm_button").click(function(){
 
 var index1 = selection1.selectedIndex;
-var mask_area=maps_list[index1]['mask_area'];
-var map_area=maps_list[index1]['map_area'];
+var mask_area=maps_list[index1-1]['mask_area'];
+var map_area=maps_list[index1-1]['map_area'];
 var value = selection1.options[index1].value;
-var center=maps_list[index1]['center'];
- map.getView().animate({center:center});
-console.log(value);
+var center=maps_list[index1-1]['center'];
+map.getView().animate({zoom: map.getView().getZoom()},{center:ol.proj.fromLonLat(center)});
+console.log(center);
 console.log(mask_area);
 console.log(map_area);
 clear_btn();
@@ -291,7 +292,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
-$("#area").text(mask_area[0]);
+$("#area").text(mask_area[1]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -304,7 +305,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
-$("#area").text(mask_area[1]);
+$("#area").text(mask_area[2]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -316,7 +317,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
-$("#area").text(mask_area[2]);
+$("#area").text(mask_area[3]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -328,7 +329,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
-$("#area").text(mask_area[3]);
+$("#area").text(mask_area[4]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -340,7 +341,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
-$("#area").text(mask_area[4]);
+$("#area").text(mask_area[5]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -352,7 +353,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
-$("#area").text(mask_area[5]);
+$("#area").text(mask_area[6]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -364,7 +365,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
-$("#area").text(mask_area[6]);
+$("#area").text(mask_area[7]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
