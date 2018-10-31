@@ -130,8 +130,14 @@ map.addLayer(default_geo_layer4);
 $("#confirm_button").click(function(){
 
 var index1 = selection1.selectedIndex;
+var mask_area=maps_list[index1]['mask_area'];
+var map_area=maps_list[index1]['map_area'];
 var value = selection1.options[index1].value;
+var center=maps_list[index1]['center'];
+ map.getView().animate({center:center});
 console.log(value);
+console.log(mask_area);
+console.log(map_area);
 clear_btn();
 map.removeLayer(my_map);
 clear_patterns();
@@ -272,6 +278,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(map_area);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -284,6 +291,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(mask_area[0]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -296,6 +304,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(mask_area[1]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -307,6 +316,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(mask_area[2]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -318,6 +328,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(mask_area[3]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -329,6 +340,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(mask_area[4]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -340,6 +352,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(mask_area[5]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
@@ -351,6 +364,7 @@ btn_status[i]=false;
 }else{
 btn_status[i]=true;
 }
+$("#area").text(mask_area[6]);
 change_btn_css(btn_status);
 display_patterns(btn_status);
 }
