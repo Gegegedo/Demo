@@ -13,8 +13,7 @@ $(function(){
             success:function(d_maps){
                 maps_list=JSON.parse(d_maps['maps']);
                 maps_list=maps_list['maps'];
-                console.log(maps_list[0]['id']);
-                console.log(typeof(d_maps));
+
                // maps_list=map_list["maps"];
                 for(var m in maps_list){
                     area=maps_list[m]['area'];
@@ -56,7 +55,8 @@ $(function(){
 //        map_2.removeLayer(demolition_vectorLayer);
 
 //map2.css("visibility","hidden");
-map2.hide();
+//map2.hide();
+map2.css('display','none');
 
         map1.off('mousemove');
         map2.off('mousemove');
@@ -159,8 +159,12 @@ map2.hide();
 //        map_2.addLayer(demolition_vectorLayer);
         map.addLayer(temp_layer2);
         map_2.addLayer(temp_layer1);
-        map2.show();
+
+
+        //map2.show();
+
         //map2.css("visibility","visible");
+        map2.css('display','block')
 
         map1.on('mousemove',event_map1);
         map2.on('mousemove',event_map2);
