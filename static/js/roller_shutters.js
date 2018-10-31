@@ -159,7 +159,6 @@ map2.hide();
 //        map_2.addLayer(demolition_vectorLayer);
         map.addLayer(temp_layer2);
         map_2.addLayer(temp_layer1);
-
         map2.show();
         //map2.css("visibility","visible");
 
