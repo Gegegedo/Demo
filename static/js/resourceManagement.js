@@ -10,31 +10,6 @@
 
         });
     }
-//window.onload=function(){
-//    //默认获取当前日期
-//    var today = new Date();
-//    var nowdate = (today.getFullYear()) + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-//    //对日期格式进行处理
-//    var date = new Date(nowdate);
-//    var mon = date.getMonth() + 1;
-//    var day = date.getDate();
-//    var mydate = date.getFullYear() + "-" + (mon < 10 ? "0" + mon : mon) + "-" + (day < 10 ? "0" + day : day);
-//    $(".nowdate").val(mydate);
-//    showList();
-//
-//
-//
-//      $('#search_btn').click(function(){
-//     maptype=$('#maptype').val();
-//      alert(maptype);
-//      window.location.href="/resource_search/?maptype="+maptype;
-//      var data=[];
-//      for(var i in sourceMaps){
-//      data.push(sourceMaps[i])
-//                            };
-//      $("#resource_tab").bootstrapTable('load',data);
-//                                });
-//};
 
 
 
