@@ -38,7 +38,7 @@ from web.models import Map
 import requests
 ###############################################
 def _map_inquiry(request):
-    response = requests.post('http://172.20.53.157:8089/map_all/')
+    response = requests.post('http://192.168.0.171:8089/map_all/')
     # print(response)
     # print(response)
     return JsonResponse({'maps':response.text})
@@ -246,7 +246,7 @@ def regional_present_situation(request):
 def _regional_present_situation(request):
     date=request.GET.get("date",False)
     interesting_area=InterestingArea.objects.filter(is_active=True)
-    response = urllib.request.urlopen('http://172.20.53.157:8089/deliver_area/',data={"interesting_area"})
+    response = urllib.request.urlopen('http://192.168.0.171:8089/deliver_area/',data={"interesting_area"})
     areas = json.loads(json.loads(response.read().decode('utf-8'))['areas'])
     return JsonResponse({'sourceMaps':areas})
 
@@ -283,9 +283,12 @@ def demolition_plotting(request):
         return render(request, 'de_plotting.html', {'x': x, 'y': y,'num':5})
     else:
         interesting_area = InterestingArea.objects.filter(is_active=True)
-        x = interesting_area[0].poly.centroid[0]
-        y = interesting_area[0].poly.centroid[1]
-        return render(request,'de_plotting.html',{'x':x,'y':y,'num':0})
+        if(interesting_area):
+             x = interesting_area[0].poly.centroid[0]
+             y = interesting_area[0].poly.centroid[1]
+             return render(request,'de_plotting.html',{'x':x,'y':y,'num':0})
+        else:
+             return render(request, 'de_plotting.html', {'x': 0, 'y': 0})
 
 def developing(request):
     id = request.GET.get('id', False)
@@ -311,10 +314,13 @@ def ib_plotting(request):
         return render(request, 'ib_plotting.html', {'x': x, 'y': y, 'num':5,'type': json.dumps(g_type, cls=DjangoJSONEncoder)})
     else:
         interesting_area = InterestingArea.objects.filter(is_active=True)
-        x = interesting_area[0].poly.centroid[0]
-        y = interesting_area[0].poly.centroid[1]
-        return render(request,'ib_plotting.html',{'x':x,'y':y,'num':0,'type':json.dumps(g_type,cls=DjangoJSONEncoder)})
-
+        if(interesting_area):
+             x = interesting_area[0].poly.centroid[0]
+             y = interesting_area[0].poly.centroid[1]
+             return render(request,'ib_plotting.html',{'x':x,'y':y,'num':0,'type':json.dumps(g_type,cls=DjangoJSONEncoder)})
+        else:
+             return render(request, 'ib_plotting.html',
+                          {'x': 0, 'y': 0, 'num': 0, 'type': json.dumps(g_type, cls=DjangoJSONEncoder)})
 
 def graphic_look(request):
     return render(request,
