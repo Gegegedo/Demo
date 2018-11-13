@@ -464,9 +464,9 @@ function change1(){
     <script>
 
          cords=[{{x|safe}},{{y|safe}}];//cords=[102,39]
-         var num={{num|safe}};
+         //var num={{num|safe}};
          if(cords.toString()!=[0,0].toString())
-            map.getView().animate({zoom: map.getView().getZoom()+num},{center:(cords)});
+            map.getView().animate({zoom: map.getView().getZoom()},{center:(cords)});
     </script>
 
     <script src="{% static 'js/load_demolition_draw.js' %}"></script>

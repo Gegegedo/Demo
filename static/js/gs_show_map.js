@@ -100,6 +100,7 @@ map.addLayer(layer7);
         })
   ]),
  });
+
 map.addLayer(default_geo_layer2);
 map.addLayer(default_geo_layer4);
     selection1=document.getElementById("imagery");

@@ -288,7 +288,7 @@ def demolition_plotting(request):
              y = interesting_area[0].poly.centroid[1]
              return render(request,'de_plotting.html',{'x':x,'y':y,'num':0})
         else:
-             return render(request, 'de_plotting.html', {'x': 0, 'y': 0})
+             return render(request, 'de_plotting.html', {'x': 0, 'y': 0,'num':0})
 
 def developing(request):
     id = request.GET.get('id', False)
