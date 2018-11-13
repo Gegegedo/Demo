@@ -95,10 +95,10 @@
             <option value="请选择时间">请选择时间</option>
         </select>
         <button class="yy-btn yy-sure" id="confirm_button">确定</button>
-            <a href="{% static 'baogao/资源分类.pdf' %}" class="yy-as" download style="color:white;margin-left:.01rem;">
+            <button class="yy-as" style="color:white;margin-left:.01rem;" id="download_btn">
                 <img src="{% static 'img/baogao.png' %}" class="yy-n1">
                 <span class="sc">生成报告</span>
-            </a>
+            </button>
         </div>
         <p class="canvas-title" style="width:100%;text-align:center;font-size:.2rem">资源统计信息（单位：平方公里）</p>
         <div id="container" style="height:4.5rem"></div>
