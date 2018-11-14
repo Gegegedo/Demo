@@ -163,7 +163,7 @@ $(function(){
         map.addLayer(temp_layer2);
         map_2.addLayer(temp_layer1);
 
-
+map.getView().animate({zoom:18,center:ol.proj.fromLonLat(center)});
         //map2.show();
 
         //map2.css("visibility","visible");
