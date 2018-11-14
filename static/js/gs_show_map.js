@@ -100,7 +100,24 @@ map.addLayer(layer7);
         })
   ]),
  });
-
+ //单击事件
+document.getElementById('download_btn').addEventListener('click', function() {
+        var select=document.getElementById("imagery")
+        var index = selection1.selectedIndex;
+        var text=select.options[index].text
+        map.once('postcompose', function(event) {
+          //获取map中的canvas,并转换为图片
+          var canvas = event.context.canvas;
+          if (navigator.msSaveBlob) {
+            navigator.msSaveBlob(canvas.msToBlob(), text+".png");
+          } else {
+            canvas.toBlob(function(blob) {
+              saveAs(blob, text+".png");
+            });
+          }
+        });
+        map.renderSync();
+      });
 map.addLayer(default_geo_layer2);
 map.addLayer(default_geo_layer4);
     selection1=document.getElementById("imagery");

@@ -263,7 +263,7 @@ def ib_event_management(request):
     return render(request,'ib_event_management.html')
 
 def event_statics(request):
-    return render(request,'event_statics.html')
+    return render(request,'history_event_statics.html')
 def region_situation(request):
     return render(request,'region_situation.html')
 def homeceshi(request):

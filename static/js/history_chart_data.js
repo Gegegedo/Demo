@@ -79,6 +79,30 @@ exporting: {
         data: [50, 20, 20, 10]
     }]
 });
+
+function getNow(s) {
+    return s < 10 ? '0' + s: s;
+}
+ $("#download_btn").click(function(){
+var myDate = new Date();
+//获取当前年
+var year=myDate.getFullYear();
+//获取当前月
+var month=myDate.getMonth()+1;
+//获取当前日
+var date=myDate.getDate();
+var h=myDate.getHours();       //获取当前小时数(0-23)
+var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+var s=myDate.getSeconds();
+
+var now=year+'-'+getNow(month)+"-"+getNow(date);
+chart1.exportChart({
+    type: 'application/pdf',
+    filename: "历史事件统计"+now
+});
+
+
+})
 //全部的信息end
 //违建start
 chart2=Highcharts.chart('container2', {
@@ -451,4 +475,5 @@ $.ajax({
                 alert('查询失败');
             }
          });
+
 });
