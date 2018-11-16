@@ -130,6 +130,7 @@ var now=year+'-'+getNow(month)+"-"+getNow(date);
         });
         map.renderSync();
       });
+
 map.addLayer(default_geo_layer2);
 map.addLayer(default_geo_layer4);
     selection1=document.getElementById("imagery");
@@ -140,28 +141,70 @@ map.addLayer(default_geo_layer4);
             data: {
             },
             success:function(d_maps){
-                console.log(d_maps);
+
                 maps_list=JSON.parse(d_maps['maps']);
                 maps_list=maps_list['maps'];
-
+                map_id_list=[];
 
                 for(var m in maps_list){
                     area=maps_list[m]['area'];
 
                     time=maps_list[m]['capture_time'];
                     id=maps_list[m]['id'];
+                    map_id_list[m]=id;
+                    selection1.add(new Option(area+time,id));
+                    selection1.options[0].text="请选择影像";
 
-                    selection1.add(new Option(area+time,id))
-                    selection1.options[0].text="请选择影像"
                 //$('#origin_option').text("请选择影像");
 
                 }
+                         all_map_layers=[];
+         for(var i in map_id_list){
+all_map_layers[i]=new ol.layer.Image({
+          source: new ol.source.ImageWMS({
+          crossOrigin:'anonymous',
+          url:'http://172.20.53.157:8080/geoserver/wms',
+          projection:'EPSG:4326',
+          params:{
+            LAYERS: 'Map:'+map_id_list[i].toString()}
+          }),
+          opacity:1,
+        });
+
+}
             }
          });
+         var show_all_status=false;
+         $("#show_all").click(function(){
+         if(show_all_status==false){
+         show_all_status=true;
+         $("#show_all").text("取消显示所有图像");
+         for(var j in all_map_layers){
+         map.addLayer(all_map_layers[j]);
+         }
+
+         }else{
+         show_all_status=false;
+          $("#show_all").text("显示所有图像");
+         for(var j in all_map_layers){
+         map.removeLayer(all_map_layers[j]);
+         }
+
+         }
+
+
+
+
+
+
+
+
+})
 $("#confirm_button").click(function(){
 
 var index1 = selection1.selectedIndex;
 var mask_area=maps_list[index1-1]['mask_area'];
+console.log(mask_area);
 var map_area=0;
 for(var i in mask_area){
 map_area+=mask_area[i];
