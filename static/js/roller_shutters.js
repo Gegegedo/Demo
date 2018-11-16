@@ -49,6 +49,7 @@ $(function(){
     var temp_layer2;
     button_compare.click(function(){
     if(iscompare){
+   map2.css('display','none');
         map.removeLayer(temp_layer1);
         map_2.removeLayer(temp_layer2);
 //        map_2.removeLayer(ibuild_vectorLayer);
@@ -56,11 +57,12 @@ $(function(){
 
 //map2.css("visibility","hidden");
 //map2.hide();
-map2.css('display','none');
+
 
         map1.off('mousemove');
         map2.off('mousemove');
         iscompare=false;
+        map.getView().animate({zoom:12,center:ol.proj.fromLonLat([117.2027, 39.1653])});
         $("#compare_span").text('开始对比');
     }else{
 
@@ -70,6 +72,7 @@ map2.css('display','none');
         var index2 = selection2.selectedIndex;
         var text2 = selection2.options[index2].text;
         var value2 = selection2.options[index2].value;
+        var center=maps_list[index1-1]['center'];
 //              $.ajax({
 //        type:'post',
 //        url:'pattern_change_detection',
@@ -160,7 +163,7 @@ map2.css('display','none');
         map.addLayer(temp_layer2);
         map_2.addLayer(temp_layer1);
 
-
+map.getView().animate({zoom:18,center:ol.proj.fromLonLat(center)});
         //map2.show();
 
         //map2.css("visibility","visible");
