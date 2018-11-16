@@ -136,7 +136,7 @@ map2.css('display','none');
         temp_layer1 = new ol.layer.Image({
             source: new ol.source.ImageWMS({
               crossOrigin: 'anonymous',
-                url:'http://172.20.53.157:8080/geoserver/wms',
+                url:'http://192.168.0.171:8080/geoserver/wms',
                 projection:'EPSG:4326',
                 params:{
                 LAYERS: 'Map:'+value1.toString()}
@@ -147,7 +147,7 @@ map2.css('display','none');
         temp_layer2 = new ol.layer.Image({
             source: new ol.source.ImageWMS({
               crossOrigin: 'anonymous',
-                url:'http://172.20.53.157:8080/geoserver/wms',
+                url:'http://192.168.0.171:8080/geoserver/wms',
                 projection:'EPSG:4326',
                 params:{
                 LAYERS: 'Map:'+value2.toString()}

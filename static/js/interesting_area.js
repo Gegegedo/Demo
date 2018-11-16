@@ -15,6 +15,7 @@ var all_draws;
         sibuild_draws=JSON.parse(sibuild_draws);
         demolition_draws=JSON.parse(demolition_draws);
         sdemolition_draws=JSON.parse(sdemolition_draws);
+
         if(interesting_area.length!=0){ for(var i in interesting_area){
             //alert(all_draws[i]);
              interesting_area[i]["geometry"]=JSON.parse(interesting_area[i]["geometry"]);
