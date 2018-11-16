@@ -159,8 +159,8 @@ map.removeLayer(my_map);
 clear_patterns();
 my_map= new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Map:'+value.toString()}
@@ -172,8 +172,8 @@ my_map= new ol.layer.Image({
 map.addLayer(my_map);
   layer1 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_1'}
@@ -182,8 +182,8 @@ map.addLayer(my_map);
         });
   layer2 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_2'}
@@ -192,8 +192,8 @@ map.addLayer(my_map);
         });
    layer3 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_3'}
@@ -202,8 +202,8 @@ map.addLayer(my_map);
         });
     layer4 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_4'}
@@ -212,8 +212,8 @@ map.addLayer(my_map);
         });
     layer5 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_5'}
@@ -222,8 +222,8 @@ map.addLayer(my_map);
         });
      layer6 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_6'}
@@ -232,8 +232,8 @@ map.addLayer(my_map);
         });
     layer7 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-
-          url:'http://172.20.53.157:8080/geoserver/wms',
+          crossOrigin:'anonymous',
+          url:'http://192.168.0.171:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_7'}

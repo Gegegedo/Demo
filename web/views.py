@@ -155,12 +155,12 @@ def ib_roller_shutters(request):
     return render(request,
                   template_name='ib_roller_shutters.html')
 #####################################################
-# @login_required(login_url="/not_login/")
+@login_required(login_url="/not_login/")
 def user_center(request):
     return render(request,
                   template_name='view_user_center.html')
-# @login_required(login_url="/not_login/")
-# @permission_required('web.user_management',login_url='/no_permissions/')
+@login_required(login_url="/not_login/")
+@permission_required('web.user_management',login_url='/no_permissions/')
 def account_management(request):
     return render(request,
                   template_name='view_account_management.html')

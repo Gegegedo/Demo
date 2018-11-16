@@ -65,23 +65,22 @@ credits: {
     },
     legend:{
         itemStyle:{
-            fontSize:"30px"
+            fontSize:"15px",
+            fontWeight:'400'
         },
         align:'right',
         x:-50,
         y:50,
         verticalAlign:'top',
         floating:true,
-        layout: 'vertical',
-        symbolWidth:60,
+        layout: 'vertical'
     },
     series: [{
         type: 'pie',
         innerSize: '80%',
         name: '区域占地',
         style: {
-    fontWeight: 'bold',
-    fontSize: '.12rem'
+    fontSize: '20px'
   },
         data: [
             {name:'农田',   y: 500, url : 'http://bbs.hcharts.cn'},
@@ -107,7 +106,7 @@ credits: {
     c.setTitle({
         y:centerY + titleHeight/2
     });
-});、
+});
 function getNow(s) {
     return s < 10 ? '0' + s: s;
 }

@@ -60,10 +60,11 @@ class Myuser(AbstractUser):
 
     class Meta():
         permissions = (
-            ("user_management", "用户管理"),
+            ("user_management", "权限管理"),
             ("ibuild_management", "违建管理"),
             ("demolition_management", "拆迁管理"),
-            ("recource_management", "资源管理")
+            ("recource_management", "影像管理")
+            ("irarea_management","感兴趣区域")
         )
 #    def __str__(self):
 #    # 在Python3中使用 def __str__(self):
