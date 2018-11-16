@@ -85,15 +85,9 @@
 <body>
         <div class="box">
             <span class="yy-time">起始时间：</span>
-            <select class="sel">
-                <option>请选择时间</option>
-                <option selected="selected">2017-11</option>
-            </select>
+             <input type='date'  id="start_time" name="time" class="nowdate search-input"/>
             <span class="yy-time yy-time2">终止时间：</span>
-            <select class="sel">
-                <option>请选择时间</option>
-                <option selected="selected">2018-4</option>
-            </select>
+            <input type='date'  id="end_time" name="time" class="nowdate search-input"/>
             <select class="sel sel2">
                 <option value="全部" selected="selected">全部</option>
                 <option value="违建">违建</option>
@@ -101,7 +95,7 @@
                 <option value="拆迁">拆迁</option>
                 <option value="疑似拆迁">疑似拆迁</option>
             </select>
-            <button class="btn yy-sure">确定</button>
+            <button class="btn yy-sure" id="search_btn">确定</button>
             <button class="yy-as"  id="download_btn">
             <img src="{% static 'img/baogao.png' %}" class="yy-n1">
                 <p class="abc">生成报告</p>
@@ -124,14 +118,14 @@
         var index = select.selectedIndex;
         var selectedText = options[index].text;
         console.log(selectedText);
-        var scbg = document.getElementById("scbg");
+        //var scbg = document.getElementById("scbg");
         if(selectedText=="全部"){
             $("#container").css("display","block");
             $("#container2").css("display","none");
             $("#container3").css("display","none");
             $("#container4").css("display","none");
             $("#container5").css("display","none");
-            scbg.href="{% static 'baogao/xinxitongji.pdf' %}";
+           // scbg.href="{% static 'baogao/xinxitongji.pdf' %}";
         }
         else if(selectedText=="违建"){
             $("#container2").css("display","block");
@@ -139,7 +133,7 @@
             $("#container3").css("display","none");
             $("#container4").css("display","none");
             $("#container5").css("display","none");
-            scbg.href="{% static 'baogao/weijian.pdf' %}";
+           // scbg.href="{% static 'baogao/weijian.pdf' %}";
         }
         else if(selectedText=="疑似违建"){
             $("#container3").css("display","block");

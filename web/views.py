@@ -38,7 +38,7 @@ from web.models import Map
 import requests
 ###############################################
 def _map_inquiry(request):
-    response = requests.post('http://192.168.0.171:8089/map_all/')
+    response = requests.post('http://172.20.53.157:8089/map_all/')
     # print(response)
     # print(response)
     return JsonResponse({'maps':response.text})
@@ -186,7 +186,8 @@ def general_survey(request):
 def resource_management(request):
     return render(request,
                   template_name='view_resource_management.html')
-
+@login_required(login_url="/not_login/")
+@permission_required('web.irarea_management',login_url='/no_permissions/')
 def view_interesting_area(request):
     return render(request,
                   template_name='view_interesting_area.html')
@@ -239,6 +240,8 @@ def ceshi(request):
     return render(request,
                   template_name='ceshi.html')
 
+@login_required(login_url="/not_login/")
+@permission_required('web.resource_status',login_url='/no_permissions/')
 def regional_present_situation(request):
     return render(request,
                   template_name='regional_chart.html')
@@ -261,9 +264,12 @@ def demolition_management(request):
 
 def ib_event_management(request):
     return render(request,'ib_event_management.html')
-
+@login_required(login_url="/not_login/")
+@permission_required('web.history_event',login_url='/no_permissions/')
 def event_statics(request):
     return render(request,'history_event_statics.html')
+@login_required(login_url="/not_login/")
+@permission_required('web.current_situation',login_url='/no_permissions/')
 def region_situation(request):
     return render(request,'region_situation.html')
 def homeceshi(request):
@@ -358,7 +364,8 @@ def rm_show_map(request):
     else:
         return JsonResponse({'error':1})
 
-
+@login_required(login_url="/not_login/")
+@permission_required('web.resource_check',login_url='/no_permissions/')
 def gs_show_map(request):
     return render(request,
                   template_name='gs_show_map.html')
@@ -397,10 +404,12 @@ def login_check(request):
     password= request.POST.get("password", False)
     user = auth.authenticate(username=username, password=password)
     if user:
-        request.session['username']=username
-        auth.login(request, user)
-
-        return JsonResponse({"status": True,'username':username})
+        if(user.my_is_active):
+            request.session['username']=username
+            auth.login(request, user)
+            return JsonResponse({"status": True, 'username': username})
+        else:
+            return JsonResponse({"status": False, 'message': '帐号被禁用，请联系管理员'})
     else:
         return JsonResponse({"status": False,'message':'用户名或密码错误'})
 
@@ -473,7 +482,7 @@ def permission_revise(request):
     check_box=json.loads(check_box)
     user = User.objects.get(id=userid)
     user.user_permissions.clear()
-    permission_dict={'1':'user_management','2':'ibuild_management','3':'demolition_management', '4':'recource_management'}
+    permission_dict={'1':'user_management','2':'ibuild_management','3':'demolition_management', '4':'recource_management','5':'current_situation','6':'resource_status','7':'history_event','8':'resource_check','9':'irarea_management'}
     for i in check_box:
        permission = Permission.objects.get(codename=permission_dict[i])
        user.user_permissions.add( permission )
@@ -498,10 +507,10 @@ def _account_inquiry(request):
             users[i] = model_to_dict(users_temp[i])
             users[i]["num"] = count
             count = count + 1
-            if (users[i]["is_active"]):
-                users[i]["is_active"] = "启用"
+            if (users[i]["my_is_active"]):
+                users[i]["my_is_active"] = "启用"
             else:
-                users[i]["is_active"] = "禁用"
+                users[i]["my_is_active"] = "禁用"
             user_permissions = []
             for j in range(len(users[i]['user_permissions'])):
                 tmp = users[i]['user_permissions'][j].name
@@ -555,6 +564,16 @@ def _permissions_query(request):
         return render(request,'am_permissions_query.html',{'message1':'查找结果为空！'})
 
 
+def history_event_search(request):
+    start_time=request.POST.get('message',False)
+    end_time=request.POST.get('message',False)
+
+
+
+
+
+
+
 def check_username(request):
     username = request.POST.get('username', False)
     user=User.objects.filter(username=username)
@@ -570,7 +589,7 @@ def status_revise(request):
     is_active=request.POST.get('is_active', False)
     id=request.POST.get('id', False)
     user=User.objects.get(id=id)
-    user.is_active=is_active
+    user.my_is_active=is_active
     user.save()
     return JsonResponse({"message":"success"})
 @csrf_exempt
@@ -905,7 +924,7 @@ def _interesting_area_search(request):
     address=request.GET.get('query_address',False)
     kwargs = {}
     #kwargs['graphiclabel__contains'] = "违建"
-    if(type==""):
+    if((type=="")and(name=="")and(createtime=="")and(address=="")):
         ib_draws= InterestingArea.objects.all()
     else:
       if(type):
@@ -927,13 +946,34 @@ def _interesting_area_search(request):
         d_ib_draws[i]["area_provide"] = user.username
     return JsonResponse({'d_ib_draws': d_ib_draws})
 
-
+@csrf_exempt
 def history_data(request):
-    ibuild_data=GraphicLabel.objects.filter(graphiclabel="违建")
-    sibuild_data=GraphicLabel.objects.filter(graphiclabel="疑似违建")
-    demolition_data=GraphicLabel.objects.filter(graphiclabel="拆迁")
-    sdemolition_data=GraphicLabel.objects.filter(graphiclabel="疑似拆迁")
-    interesting_area=InterestingArea.objects.filter(is_active=True)
+    start_time = request.POST.get('start_time', False)
+    end_time = request.POST.get('end_time', False)
+    interesting_area = InterestingArea.objects.filter(is_active=True)
+    if((start_time=='')and(end_time=='')):
+        ibuild_data=GraphicLabel.objects.filter(graphiclabel="违建")
+        sibuild_data=GraphicLabel.objects.filter(graphiclabel="疑似违建")
+        demolition_data=GraphicLabel.objects.filter(graphiclabel="拆迁")
+        sdemolition_data=GraphicLabel.objects.filter(graphiclabel="疑似拆迁")
+
+    if((start_time=='')and(end_time!='')):
+        ibuild_data = GraphicLabel.objects.filter(graphiclabel="违建",foundtime=end_time)
+        sibuild_data = GraphicLabel.objects.filter(graphiclabel="疑似违建",foundtime=end_time)
+        demolition_data = GraphicLabel.objects.filter(graphiclabel="拆迁",foundtime=end_time)
+        sdemolition_data = GraphicLabel.objects.filter(graphiclabel="疑似拆迁",foundtime=end_time)
+
+    if((start_time!='')and(end_time=='')):
+        ibuild_data = GraphicLabel.objects.filter(graphiclabel="违建",foundtime=start_time)
+        sibuild_data = GraphicLabel.objects.filter(graphiclabel="疑似违建",foundtime=start_time)
+        demolition_data = GraphicLabel.objects.filter(graphiclabel="拆迁",foundtime=start_time)
+        sdemolition_data = GraphicLabel.objects.filter(graphiclabel="疑似拆迁",foundtime=start_time)
+    if((start_time!='')and(end_time!='')):
+        ibuild_data = GraphicLabel.objects.filter(graphiclabel="违建", foundtime__gte=start_time,foundtime__lte=end_time)
+        sibuild_data = GraphicLabel.objects.filter(graphiclabel="疑似违建", foundtime__gte=start_time,foundtime__lte=end_time)
+        demolition_data = GraphicLabel.objects.filter(graphiclabel="拆迁", foundtime__gte=start_time,foundtime__lte=end_time)
+        sdemolition_data = GraphicLabel.objects.filter(graphiclabel="疑似拆迁", foundtime__gte=start_time,foundtime__lte=end_time)
+
     ibuild_count = 0
     sibuild_count =0
     demolition_count = 0

@@ -102,6 +102,18 @@ map.addLayer(layer7);
  });
  //单击事件
 document.getElementById('download_btn').addEventListener('click', function() {
+var myDate = new Date();
+//获取当前年
+var year=myDate.getFullYear();
+//获取当前月
+var month=myDate.getMonth()+1;
+//获取当前日
+var date=myDate.getDate();
+var h=myDate.getHours();       //获取当前小时数(0-23)
+var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+var s=myDate.getSeconds();
+
+var now=year+'-'+getNow(month)+"-"+getNow(date);
         var select=document.getElementById("imagery")
         var index = selection1.selectedIndex;
         var text=select.options[index].text
@@ -109,10 +121,10 @@ document.getElementById('download_btn').addEventListener('click', function() {
           //获取map中的canvas,并转换为图片
           var canvas = event.context.canvas;
           if (navigator.msSaveBlob) {
-            navigator.msSaveBlob(canvas.msToBlob(), text+".png");
+            navigator.msSaveBlob(canvas.msToBlob(), text+now+".png");
           } else {
             canvas.toBlob(function(blob) {
-              saveAs(blob, text+".png");
+              saveAs(blob, text+now+".png");
             });
           }
         });
@@ -150,7 +162,11 @@ $("#confirm_button").click(function(){
 
 var index1 = selection1.selectedIndex;
 var mask_area=maps_list[index1-1]['mask_area'];
-var map_area=maps_list[index1-1]['map_area'];
+var map_area=0;
+for(var i in mask_area){
+map_area+=mask_area[i];
+}
+//var map_area=maps_list[index1-1]['map_area'];
 var value = selection1.options[index1].value;
 var center=maps_list[index1-1]['center'];
 map.getView().animate({zoom: map.getView().getZoom()},{center:ol.proj.fromLonLat(center)});
@@ -160,7 +176,7 @@ clear_patterns();
 my_map= new ol.layer.Image({
           source: new ol.source.ImageWMS({
           crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Map:'+value.toString()}
@@ -172,8 +188,8 @@ my_map= new ol.layer.Image({
 map.addLayer(my_map);
   layer1 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-          crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_1'}
@@ -182,8 +198,8 @@ map.addLayer(my_map);
         });
   layer2 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-          crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_2'}
@@ -192,8 +208,8 @@ map.addLayer(my_map);
         });
    layer3 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-          crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_3'}
@@ -202,8 +218,8 @@ map.addLayer(my_map);
         });
     layer4 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-          crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_4'}
@@ -212,8 +228,8 @@ map.addLayer(my_map);
         });
     layer5 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-          crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_5'}
@@ -222,8 +238,8 @@ map.addLayer(my_map);
         });
      layer6 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-          crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_6'}
@@ -232,8 +248,8 @@ map.addLayer(my_map);
         });
     layer7 = new ol.layer.Image({
           source: new ol.source.ImageWMS({
-          crossOrigin:'anonymous',
-          url:'http://192.168.0.171:8080/geoserver/wms',
+
+          url:'http://172.20.53.157:8080/geoserver/wms',
           projection:'EPSG:4326',
           params:{
             LAYERS: 'Mask:'+value.toString()+'_7'}

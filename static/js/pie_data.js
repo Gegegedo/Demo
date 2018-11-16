@@ -13,7 +13,22 @@ $(function(){
         useHTML:true,
         style: {
         fontSize: '.18rem'
-  }
+
+  },
+text:'总面积：0平方公里'
+    },
+     subtitle: {
+        align:'left',
+        x:20,
+        y:60,
+        verticalAlign:'top',
+        floating:true,
+        text: '',
+        useHTML:true,
+        style: {
+        fontSize: '.18rem'
+
+  },
 
     },
     exporting: {
@@ -48,17 +63,17 @@ credits: {
                 events: {
                     mouseOver: function(e) {  // 鼠标滑过时动态更新标题
                         // 标题更新函数，API 地址：https://api.hcharts.cn/highcharts#Chart.setTitle
-                        chart.setTitle({
-                            text: '总面积：1000平方公里'+'<br>'+e.target.name+'\t'+ e.target.y+'平方公里'+'<br>'+ '\t'+ '区域占地：'+e.target.percentage + ' %',
+                        chart.setTitle(null,{
+                            text:e.target.name+'\t'+ e.target.y+'平方公里'+'<br>'+ '\t'+ '区域占地：'+e.target.percentage + ' %',
                         }
                         );
                     }
                     ,
-                     click: function(e) { // 同样的可以在点击事件里处理
-                         chart.setTitle({
-                             text: e.point.name+ '\t'+ e.point.percentage + ' %'
-                         });
-                     }
+//                     click: function(e) { // 同样的可以在点击事件里处理
+//                         chart.setTitle({
+//                             text: e.point.name+ '\t'+ e.point.percentage + ' %'
+//                         });
+//                     }
                 }
             },
         }
@@ -128,7 +143,7 @@ var select=document.getElementById("imagery")
         var text=select.options[index].text
 chart.exportChart({
     type: 'application/pdf',
-    filename: text
+    filename: text+now
 });
 
 
@@ -194,7 +209,13 @@ var area=maps_list[index1-1]['mask_area'];
         ]
 
                 });
-                chart.setTitle
+                var wholearea=0;
+             for(var i in area){
+             wholearea+=area[i];
+
+
+             }
+                chart.setTitle({text:"总面积："+wholearea});
 
 
          })

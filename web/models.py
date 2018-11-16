@@ -50,6 +50,7 @@ class Myuser(AbstractUser):
     first_name = models.CharField(max_length=20,default='a',blank=True)
     last_name = models.CharField(max_length=20, default='b',blank=True)
     is_active=models.BooleanField(default=True,blank=True)
+    my_is_active = models.BooleanField(default=True, blank=True)
     is_staff=models.BooleanField(default=True,blank=True)
     is_superuser=models.BooleanField(default=False,blank=True)
     date_joined=models.DateField(blank=True,default=timezone.now)
@@ -61,10 +62,14 @@ class Myuser(AbstractUser):
     class Meta():
         permissions = (
             ("user_management", "权限管理"),
+            ("irarea_management","感兴趣区域"),
+            ("current_situation","区域现状"),
+            ("resource_status","资源分类统计"),
+            ("history_event","历史事件统计"),
+            ("resource_check","资源分类详查"),
             ("ibuild_management", "违建管理"),
             ("demolition_management", "拆迁管理"),
             ("recource_management", "影像管理")
-            ("irarea_management","感兴趣区域")
         )
 #    def __str__(self):
 #    # 在Python3中使用 def __str__(self):
@@ -96,7 +101,7 @@ class GraphicLabel(models.Model):
     square = models.FloatField(default=0)
     graphic_provide= models.ForeignKey(Myuser,on_delete=models.CASCADE,blank=True)
 
-    createtime=models.DateField(auto_now_add=True)
+    createtime=models.DateTimeField(auto_now_add=True)
     foundtime=models.DateField(blank=True,default=timezone.now)
     address=models.CharField(max_length=16,default='无')
 

@@ -20,7 +20,7 @@
 				  search: true,
 				  data:data,
 				  columns: [
-					  {field: 'id', title:'序号',width:'10%', align: 'center'},
+					  {field: 'num', title:'序号',width:'10%', align: 'center',formatter: function (value, row, index) {return index+1;}},
 					  {field: 'username', title:'帐号',width:'10%', align: 'center'},
 					  {field: 'department_name', title:'单位名称',width:'10%', align: 'center'},
 					  {field: 'user_permissions', title:'已有权限',width:'30%', align: 'center'},
@@ -44,20 +44,30 @@
 					  {field: 'tool',title: '修改权限', align: 'center',width:'15%',
 						  	  formatter: function (value,row,index){
 						  	      var element;
-						  	      if (row.is_active) {
+						  	      if (row.my_is_active) {
 						  	         element = "<p>"
-                                      + "用户管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='1' />"
-                                      + "违建管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='2' /></p><p>"
-                                      + "拆迁管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='3' />"
-                                      + "资源管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='4' /></p><p>"
+                                      + "权限管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='1' />"
+                                      + "违建管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='2' />"
+                                      + "拆迁管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='3' /></p><p>"
+                                      + "影像管理" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='4' />"
+                                      + "区域现状" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='5' />"
+                                      + "资源分类统计" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='6' /></p><p>"
+                                      + "历史事件统计" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='7' />"
+                                      + "资源分类详查" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='8' />"
+                                      + "感兴趣区域" + "<input class='authorityList" + row.id +"' type='checkbox' name='checkbox" + row.id + "' value='9' /></p><p>"
                                       + "<button type='button' id='subBut" + row.id + "' class='btn btn-primary subBut' onclick='permission_confirm(\" "+row.id+" \",\" "+index+" \")'>确认</button>&nbsp&nbsp&nbsp&nbsp&nbsp"
                                       + "</p>";
 						  	      } else {
 						  	         element = "<p>"
-                                      + "用户管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='1' />"
-                                      + "违建管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='2' /></p><p>"
-                                      + "拆迁管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='3' />"
-                                      + "资源管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='4' /></p><p>"
+                                      + "权限管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='1' />"
+                                      + "违建管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='2' />"
+                                      + "拆迁管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='3' /></p><p>"
+                                      + "影像管理" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='4' />"
+                                      + "区域现状" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='5' />"
+                                      + "资源分类统计" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='6' /></p><p>"
+                                      + "历史事件统计" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='7' />"
+                                      + "资源分类详查" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='8' />"
+                                      + "感兴趣区域" + "<input class='authorityList" + row.id +"' type='checkbox' disabled='disabled' name='checkbox" + row.id + "' value='9' /></p><p>"
                                       + "<button type='button' id='subBut" + row.id + "' disabled='disabled' class='btn btn-primary subBut' onclick='permission_confirm(\" "+row.id+" \",\" "+index+" \")'>确认</button>&nbsp&nbsp&nbsp&nbsp&nbsp"
                                       + "</p>";
 						  	      }
