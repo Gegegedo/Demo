@@ -22,10 +22,12 @@ $(function(){
     function singleClickEvent(e){
         var coords=e.selected[0].getGeometry().getCoordinates();
         var id=e.selected[0].getProperties().id;
+        var name=e.selected[0].getProperties().name;
         var square=e.selected[0].getProperties().square;
         var type=e.selected[0].getProperties().type;
         var address=e.selected[0].getProperties().address;
         var time=e.selected[0].getProperties().foundtime;
+         $("#popup_info_name").text(name);
          $("#popup_info_square").text(square);
          $("#popup_info_type").text(type);
          $("#popup_info_address").text(address);

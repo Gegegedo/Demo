@@ -412,9 +412,16 @@ exporting: {
         data: [10]
     }]
 });
+function query(){
+var start_time=$("#start_time").val();
+var end_time=$("#end_time").val();
 $.ajax({
-            type:'get',
+            type:'post',
             url:'/history_data/',
+            data:{
+            "start_time":start_time,
+            "end_time":end_time
+            },
             success:function(result){
 
                 var area=result['area'];
@@ -475,5 +482,13 @@ $.ajax({
                 alert('查询失败');
             }
          });
+
+
+}
+ query();
+  $("#search_btn").click(function(){
+              query();
+              console.log("aaa");
+         })
 
 });

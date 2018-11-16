@@ -17,14 +17,14 @@ window.onload = function(){
             url:"/_account_inquiry/",
             data:{"message":message},
             success:function(users){
-                if(users["status"]){
+                
                     data1=[];
                     users_temp=users["users"];
                     for(var i in users_temp){
                         data1.push(users_temp[i]);
                      }
                     $("#account_inquiry_tab").bootstrapTable('load',data1);
-                }
+
             },
             error:function(){
                 alert("error");
@@ -45,12 +45,12 @@ window.onload = function(){
               search: false,
               data:data,
               columns: [
-                  {field: 'num', title:'序号', width:'10%', align:'center'},
+                  {field: 'num', title:'序号', width:'10%', align:'center',formatter: function (value, row, index) {return index+1;}},
                   {field: 'username', title:'帐号', width:'10%', align:'center'},
                   {field: 'department_name', title:'部门', width:'10%', align:'center'},
                   {field: 'contact_usr', title:'联系人', width:'10%', align:'center'},
                   {field: 'phone', title:'联系电话', width:'10%', align:'center'},
-                  {field: 'is_active', title:'状态', width:'10%', align:'center'},
+                  {field: 'my_is_active', title:'状态', width:'10%', align:'center'},
                    {field: 'user_permissions', title:'权限', width:'10%', align:'center'},
               ],
 

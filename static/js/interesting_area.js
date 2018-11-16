@@ -15,8 +15,7 @@ var all_draws;
         sibuild_draws=JSON.parse(sibuild_draws);
         demolition_draws=JSON.parse(demolition_draws);
         sdemolition_draws=JSON.parse(sdemolition_draws);
-
-        for(var i in interesting_area){
+        if(interesting_area.length!=0){ for(var i in interesting_area){
             //alert(all_draws[i]);
              interesting_area[i]["geometry"]=JSON.parse(interesting_area[i]["geometry"]);
               var features=(new ol.format.GeoJSON()).readFeatures(interesting_area[i]);
@@ -41,7 +40,8 @@ var all_draws;
 
         }
         var point=interesting_area[0]["properties"]["center"];
-        map.getView().animate({center:(point)});
+        map.getView().animate({center:(point)});}
+
         for(var i in ibuild_draws){
 
              ibuild_draws[i]["context"]=JSON.parse(ibuild_draws[i]["context"]);
@@ -196,11 +196,13 @@ var all_draws;
            demolition_draws[i]["context"]["geometry"]=JSON.parse(demolition_draws[i]["context"]["geometry"]);
            demolition_draws[i]["center"]=JSON.parse(demolition_draws[i]["center"]);
            var features=(new ol.format.GeoJSON()).readFeatures(demolition_draws[i]["context"]);
-             style=new ol.style.Style({
+            style=new ol.style.Style({
                 stroke:new ol.style.Stroke({
-                    color: '#FF0000',
-                     width: 3,
-                     lineDash:[10,10,10,10,10,10],
+                    color:'#00FFFF',
+                   width: 1,
+                }),
+                fill: new ol.style.Fill({ //矢量图层填充颜色，以及透明度
+                    color: '#A6C2DE'
                 }),
             });
             features[0].setStyle(style);
